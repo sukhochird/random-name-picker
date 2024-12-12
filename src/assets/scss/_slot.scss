@@ -128,6 +128,7 @@
 }
 
 #draw-button {
+  display: none;
   width: $draw-button-width;
   max-width: 100%;
   margin: $draw-button-margin-top 0 0;

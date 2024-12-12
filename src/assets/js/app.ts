@@ -46,13 +46,13 @@ import SoundEffects from '@js/SoundEffects';
   const CONFETTI_COLORS = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
   let confettiAnimationId;
 
-  /** Confeetti animation instance */
+  /** Confetti animation instance */
   const customConfetti = confetti.create(confettiCanvas, {
     resize: true,
     useWorker: true
   });
 
-  /** Triggers cconfeetti animation until animation is canceled */
+  /** Triggers confetti animation until animation is canceled */
   const confettiAnimation = () => {
     const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
     const confettiScale = Math.max(0.5, Math.min(1, windowWidth / 1100));
@@ -77,7 +77,7 @@ import SoundEffects from '@js/SoundEffects';
     sunburstSvg.style.display = 'none';
   };
 
-  /**  Function to be trigger before spinning */
+  /**  Function to be triggered before spinning */
   const onSpinStart = () => {
     stopWinningAnimation();
     drawButton.disabled = true;
@@ -85,7 +85,7 @@ import SoundEffects from '@js/SoundEffects';
     soundEffects.spin((MAX_REEL_ITEMS - 1) / 10);
   };
 
-  /**  Functions to be trigger after spinning */
+  /**  Function to be triggered after spinning */
   const onSpinEnd = async () => {
     confettiAnimation();
     sunburstSvg.style.display = 'block';
@@ -125,6 +125,18 @@ import SoundEffects from '@js/SoundEffects';
     }
 
     slot.spin();
+  });
+
+  // Add Enter key handler
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !drawButton.disabled) {
+      if (!slot.names.length) {
+        onSettingsOpen();
+        return;
+      }
+
+      slot.spin();
+    }
   });
 
   // Hide fullscreen button when it is not supported
